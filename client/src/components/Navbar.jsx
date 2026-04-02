@@ -8,7 +8,7 @@ const navLinks = [
   { to: "/doctors", label: "Doctors" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ isLoggedIn, onLogout }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -36,9 +36,22 @@ export default function Navbar() {
           </ul>
 
           <div className="nav-actions">
-            <Link to="/login" className="btn btn-primary btn-sm" onClick={() => setOpen(false)}>
-              Login
-            </Link>
+            {isLoggedIn ? (
+              <button
+                type="button"
+                className="btn btn-primary btn-sm"
+                onClick={() => {
+                  onLogout();
+                  setOpen(false);
+                }}
+              >
+                Logout
+              </button>
+            ) : (
+              <Link to="/login" className="btn btn-primary btn-sm" onClick={() => setOpen(false)}>
+                Login
+              </Link>
+            )}
             <button
               className="hamburger"
               onClick={() => setOpen((prev) => !prev)}

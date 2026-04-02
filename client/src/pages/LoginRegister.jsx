@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const blankLogin = { email: "", password: "" };
 const blankReg = { name: "", email: "", phone: "", password: "", confirm: "" };
 
-export default function LoginRegister() {
+export default function LoginRegister({ onLogin }) {
   const [tab, setTab] = useState("login");
   const [login, setLogin] = useState(blankLogin);
   const [reg, setReg] = useState(blankReg);
@@ -17,6 +17,10 @@ export default function LoginRegister() {
 
   const submitLogin = (e) => {
     e.preventDefault();
+    localStorage.setItem("petapp_logged_in", "true");
+    if (onLogin) {
+      onLogin();
+    }
     setLoginDone(true);
   };
 

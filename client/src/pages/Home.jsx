@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const offers = [
@@ -28,6 +29,15 @@ const offers = [
     to: "/services",
     emoji: "✂️",
   },
+  {
+    gradient: "linear-gradient(135deg,#14b8a6,#0f766e)",
+    badge: "🎁 Adoption Bonus",
+    title: "1 Year Free Doctor Appointment",
+    desc: "Adopt any pet with us and get complimentary vet consultations for one full year.",
+    cta: "Adopt Now",
+    to: "/products",
+    emoji: "🩺",
+  },
 ];
 
 const products = [
@@ -52,44 +62,179 @@ const doctors = [
   { id: 3, avatar: "👨‍⚕️", name: "Dr. James Okafor", spec: "Pet Behaviourist", exp: "7 yrs exp", rating: "★★★★☆ 4.6", avail: "Tue–Sat" },
 ];
 
+const heroSlides = [
+  {
+    badge: "🐾 Pet Adoption Hub",
+    title: "Find Your Perfect Friend",
+    highlight: "Adopt Your Pet",
+    desc: "Browse lovable cats and dogs ready for a forever home with complete health and care details.",
+    cta: "Adopt Your Pet",
+    to: "/products",
+    stats: [
+      { value: "5,000+", label: "Pets Available" },
+      { value: "120+", label: "Pet Breeds" },
+    ],
+    visualHeading: "Pet Categories",
+    visuals: [
+      { image: "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=300&q=80", label: "Dogs" },
+      { image: "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=300&q=80", label: "Cats" },
+      { image: "https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&w=300&q=80", label: "Birds" },
+      { image: "https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&w=300&q=80", label: "Fishes" },
+      { image: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&w=300&q=80", label: "Rabbits" },
+    ],
+  },
+  {
+    badge: "✂️ Complete Care Services",
+    title: "Professional Services For",
+    highlight: "Every Pet Need",
+    desc: "From grooming and vaccinations to dental and emergency care, everything is handled by experts.",
+    cta: "Book Now",
+    to: "/services",
+    stats: [
+      { value: `${services.length}+`, label: "Service Types" },
+      { value: "24/7", label: "Support" },
+    ],
+    visualHeading: "Popular Services",
+    visuals: [
+      { image: "https://images.unsplash.com/photo-1581595219315-a187dd40c322?auto=format&fit=crop&w=300&q=80", label: "Vaccination" },
+      { image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=300&q=80", label: "Grooming" },
+      { image: "https://images.unsplash.com/photo-1558929996-da64ba858215?auto=format&fit=crop&w=300&q=80", label: "Spa Bath" },
+      { image: "https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&w=300&q=80", label: "Dental" },
+      { image: "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=300&q=80", label: "Emergency" },
+    ],
+  },
+  {
+    badge: "🩺 Trusted Vet Network",
+    title: "Fast Doctor Booking For",
+    highlight: "Healthy Pets",
+    desc: "Schedule consultations with experienced veterinarians for routine checkups and urgent concerns.",
+    cta: "Book Vet Now",
+    to: "/doctors",
+    stats: [
+      { value: `${doctors.length}+`, label: "Expert Vets" },
+      { value: "1,200+", label: "Appointments Monthly" },
+    ],
+    visualHeading: "Vet Care In Action",
+    visuals: [
+      { image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=300&q=80", label: "Consultation" },
+      { image: "https://images.unsplash.com/photo-1551884170-09fb70a3a2ed?auto=format&fit=crop&w=300&q=80", label: "Checkup" },
+      { image: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=300&q=80", label: "Dog Care" },
+      { image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=300&q=80", label: "Cat Care" },
+      { image: "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=300&q=80", label: "Treatment" },
+    ],
+  },
+];
+
 function Hero() {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(null);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const prevSlide = () => {
+    setActiveSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  };
+
+  const nextSlide = () => {
+    setActiveSlide((prev) => (prev + 1) % heroSlides.length);
+  };
+
+  const onTouchStart = (e) => {
+    setTouchStartX(e.changedTouches[0].clientX);
+  };
+
+  const onTouchEnd = (e) => {
+    if (touchStartX === null) {
+      return;
+    }
+
+    const endX = e.changedTouches[0].clientX;
+    const diff = touchStartX - endX;
+    const swipeThreshold = 50;
+
+    if (diff > swipeThreshold) {
+      nextSlide();
+    } else if (diff < -swipeThreshold) {
+      prevSlide();
+    }
+
+    setTouchStartX(null);
+  };
+
+  const currentSlide = heroSlides[activeSlide];
+
   return (
     <section className="hero">
       <div className="container">
-        <div className="hero-content">
-          <span className="hero-badge">🐾 Trusted Pet Care Platform</span>
-          <h1>
-            Your Pet Deserves <span>The Best Care</span>
-          </h1>
-          <p>
-            Shop premium pet products, book expert vet appointments, and access
-            world-class grooming — all in one place.
-          </p>
-          <div className="hero-btns">
-            <Link to="/products" className="btn btn-accent">
-              Shop Products
-            </Link>
-            <Link
-              to="/doctors"
-              className="btn btn-outline"
-              style={{ borderColor: "#fff", color: "#fff" }}
-            >
-              Book Appointment
-            </Link>
+        <div className="hero-content" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+          <div className="hero-slide" key={activeSlide}>
+            <div className="hero-layout">
+              <div className="hero-copy">
+                <span className="hero-badge">{currentSlide.badge}</span>
+                <h1 className="hero-headline">
+                  {currentSlide.title} <span>{currentSlide.highlight}</span>
+                </h1>
+                <p>{currentSlide.desc}</p>
+
+                <div className="hero-btns">
+                  <Link to={currentSlide.to} className="btn btn-accent">
+                    {currentSlide.cta}
+                  </Link>
+                </div>
+
+                <div className="hero-stats">
+                  {currentSlide.stats.map((stat) => (
+                    <div className="hero-stat" key={stat.label}>
+                      <strong>{stat.value}</strong>
+                      <span>{stat.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="hero-visual" aria-hidden="true">
+                <p className="hero-visual-title">{currentSlide.visualHeading}</p>
+                <div className="hero-visual-grid">
+                  {currentSlide.visuals.map((item) => (
+                    <div className="hero-visual-item" key={item.label}>
+                      <img
+                        src={item.image}
+                        alt={item.label}
+                        className="hero-visual-image"
+                        loading="lazy"
+                      />
+                      <span className="hero-visual-label">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="hero-stats">
-            <div className="hero-stat">
-              <strong>5,000+</strong>
-              <span>Happy Pets</span>
+
+          <div className="hero-controls" aria-label="Hero carousel controls">
+            <button type="button" className="hero-arrow" onClick={prevSlide} aria-label="Previous slide">
+              ←
+            </button>
+            <div className="hero-dots">
+              {heroSlides.map((slide, index) => (
+                <button
+                  key={slide.badge}
+                  type="button"
+                  className={`hero-dot${index === activeSlide ? " active" : ""}`}
+                  onClick={() => setActiveSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
             </div>
-            <div className="hero-stat">
-              <strong>50+</strong>
-              <span>Expert Vets</span>
-            </div>
-            <div className="hero-stat">
-              <strong>200+</strong>
-              <span>Products</span>
-            </div>
+            <button type="button" className="hero-arrow" onClick={nextSlide} aria-label="Next slide">
+              →
+            </button>
           </div>
         </div>
       </div>
@@ -167,7 +312,7 @@ function ServicesSection() {
         <p className="section-sub">Professional care services for every kind of pet</p>
         <div className="services-grid">
           {services.map((s, i) => (
-            <div key={i} className="service-card">
+            <div key={i} className={`service-card${s.highlight ? " service-highlight" : ""}`}>
               <span className="service-icon">{s.icon}</span>
               <h3>{s.name}</h3>
               <p>{s.desc}</p>
