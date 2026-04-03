@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 const doctors = [
-  { id: 1, avatar: "👨‍⚕️", name: "Dr. Samuel Rivera",  spec: "General Veterinarian", exp: "12 yrs", rating: "★★★★★ 4.9", avail: "Mon–Fri",  fee: "₹3,000" },
-  { id: 2, avatar: "👩‍⚕️", name: "Dr. Priya Nair",     spec: "Animal Surgeon",       exp: "9 yrs",  rating: "★★★★★ 4.8", avail: "Mon–Sat",  fee: "₹4,000" },
-  { id: 3, avatar: "👨‍⚕️", name: "Dr. James Okafor",   spec: "Pet Behaviourist",     exp: "7 yrs",  rating: "★★★★☆ 4.6", avail: "Tue–Sat",  fee: "₹3,250" },
-  { id: 4, avatar: "👩‍⚕️", name: "Dr. Elena Voss",     spec: "Dermatologist",        exp: "11 yrs", rating: "★★★★★ 4.9", avail: "Mon–Thu",  fee: "₹3,500" },
-  { id: 5, avatar: "👨‍⚕️", name: "Dr. Carlos Mendes",  spec: "Dental Specialist",    exp: "8 yrs",  rating: "★★★★☆ 4.5", avail: "Wed–Sun",  fee: "₹3,750" },
-  { id: 6, avatar: "👩‍⚕️", name: "Dr. Aisha Kamara",   spec: "Nutritionist",         exp: "6 yrs",  rating: "★★★★★ 4.7", avail: "Mon–Fri",  fee: "₹2,750" },
+  { id: 1, avatar: "👨‍⚕️", name: "Doctor-1", spec: "General Veterinarian", exp: "12 yrs", rating: "★★★★★ 4.9", avail: "Mon–Fri", fee: "₹3,000" },
+  { id: 2, avatar: "👩‍⚕️", name: "Doctor-2", spec: "Animal Surgeon", exp: "9 yrs", rating: "★★★★★ 4.8", avail: "Mon–Sat", fee: "₹4,000" },
+  { id: 3, avatar: "👨‍⚕️", name: "Doctor-3", spec: "Pet Behaviourist", exp: "7 yrs", rating: "★★★★☆ 4.6", avail: "Tue–Sat", fee: "₹3,250" },
+  { id: 4, avatar: "👩‍⚕️", name: "Doctor-4", spec: "Dermatologist", exp: "11 yrs", rating: "★★★★★ 4.9", avail: "Mon–Thu", fee: "₹3,500" },
+  { id: 5, avatar: "👨‍⚕️", name: "Doctor-5", spec: "Dental Specialist", exp: "8 yrs", rating: "★★★★☆ 4.5", avail: "Wed–Sun", fee: "₹3,750" },
+  { id: 6, avatar: "👩‍⚕️", name: "Doctor-6", spec: "Nutritionist", exp: "6 yrs", rating: "★★★★★ 4.7", avail: "Mon–Fri", fee: "₹2,750" },
 ];
 
 const timeSlots = ["9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"];
@@ -93,15 +93,15 @@ export default function DoctorsAppointment() {
               <div className="form-grid">
                 <div className="form-group">
                   <label>Your Full Name *</label>
-                  <input name="name" value={form.name} onChange={change} placeholder="John Doe" required />
+                  <input name="name" value={form.name} onChange={change} placeholder="kalyan" required />
                 </div>
                 <div className="form-group">
                   <label>Phone Number *</label>
-                  <input name="phone" type="tel" value={form.phone} onChange={change} placeholder="+1 555 000 0000" required />
+                  <input name="phone" type="tel" value={form.phone} onChange={change} placeholder="91 0000000000" required />
                 </div>
                 <div className="form-group">
                   <label>Email Address *</label>
-                  <input name="email" type="email" value={form.email} onChange={change} placeholder="john@example.com" required />
+                  <input name="email" type="email" value={form.email} onChange={change} placeholder="kalyan@example.com" required />
                 </div>
                 <div className="form-group">
                   <label>Pet's Name *</label>
