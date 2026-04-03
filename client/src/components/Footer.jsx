@@ -123,7 +123,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href={clinicDetails.listingUrl} target="_blank" rel="noreferrer">
-                  View business listing
+                  View business listings
                 </a>
               </li>
             </ul>
